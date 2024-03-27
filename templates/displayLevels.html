@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for ('static', filename = 'a.css')}}">
+    <title>display levels</title>
+    <style>
+        body{
+            margin: 0%;
+            background-color: black;
+            color: white;
+        }
+        main{
+            margin: 12%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-gap: 40px;
+        }
+        .level-display{
+            border-radius: 10px;
+            border: 1px solid white;
+            box-shadow: 2px 5px 4px ;
+            padding: 8%;
+        }
+        .level-display:hover{
+            cursor: pointer;
+            background-color: grey;
+        }
+        .level-display:active{
+            transform: scale(2);
+        }
+        @keyframes in-and-out {
+            10%, 100%{
+                opacity: .6;
+                transform: scale(.6);
+            }
+            60%{
+                opacity: 1;
+                transform: scale(1);
+            }}
+            @media screen and (max-width: 1000px) {
+                .level-display {
+                    animation: in-and-out 2s;
+                    animation-timeline: view();
+                    
+                }
+            }
+
+
+    </style>
+</head>
+<body>
+    <nav style="    
+        background-color: darkkhaki;
+        color: black;
+        display: flex;
+        justify-content: space-around;"
+        >
+        <a href="/showLevels">show all levels</a>
+        <a href="/home">home</a>
+    </nav>
+    <main>
+        {% if allLevels %}
+            {% for wpm in allLevels %}
+            <a href="/gotoLevel/{{ loop.index }}" class="level-display"> 
+                <h1> Level: {{ loop.index }}</h1>
+                <h1>Highscore: {{ wpm }} WPM</h1>
+            </a>
+            {% endfor %}       
+            
+        {%else%}
+            <h1>there is no content to display</h1>
+        {% endif %}
+    </main>
+
+ 
+        
+</body>
+</html>

@@ -1,0 +1,39 @@
+.night-mode{
+    background-color: black;
+    color: white;
+    fill: white;
+}
+.levelDisplay{
+    display: flex;
+}
+
+body{
+    background-color: rgba(235, 220, 220, 0.865);
+    margin: 0%;
+    text-align: center;
+    font-size: xx-large;
+}
+
+main{
+    animation: fadeIn 1s
+}
+.wrapper{
+    display: flex;
+    justify-content: center; /* Optional: adjust as needed */
+    align-items: center; /* Optional: adjust as needed */
+}
+
+.wpm{
+    color: darkcyan;
+}
+
+main, .text, .wpm{
+    margin: 12%;
+}
+
+@keyframes fadeIn {
+0%{
+    opacity: 0;
+    scale: .8;
+}
+}
