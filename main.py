@@ -42,8 +42,8 @@ def loadNextLevel(level: int):
 
 
 typingLevels = [
-    "The Project Gutenberg EBook of The Complete Works of William Shakespeare",
-    "This eBook is for the use of anyone anywhere at no cost and with",
+    'f',
+    "The Project Gutenberg EBook of The Complete Works of William Shakespear This eBook is for the use of anyone anywhere at no cost and with",
     "almost no restrictions whatsoever, you may use it for any purpose,",
     "including commercial purposes, all without asking permission.",
     "In no case will you be held liable for any damages",

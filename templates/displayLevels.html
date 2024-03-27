@@ -64,6 +64,16 @@
         <a href="/showLevels">show all levels</a>
         <a href="/home">home</a>
     </nav>
+    <div style="text-align: center;">
+        {% if username %}
+            <h1>
+                {{username}}
+            </h1>
+            {% else %}
+            <h1>Guest</h1>
+            <p>you are currently not logged, would you like to <a href="/login">login</a> to save progress?</p>
+        {% endif %}
+    </div>
     <main>
         {% if allLevels %}
             {% for wpm in allLevels %}

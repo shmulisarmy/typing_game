@@ -1,10 +1,19 @@
 body {
+    transition: 1s;
     background-color: grey;
     --text-color: black;
     color: var(--text-color);
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+}
+
+header{
+    display: flex;
+    justify-content: space-around;
+}
+button:hover{
+    cursor: pointer;
 }
 
 .navbar {
@@ -33,8 +42,19 @@ body {
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
 }
 
+.text{
+    height: 100px;
+    border: .1px solid var(--text-color);
+    padding: 4%;
+    margin: 4%;
+}
+
 .level-display {
     margin-bottom: 20px;
+}
+#graph {
+    height: 100px;
+    width: 500px;
 }
 
 .level-display p {

@@ -24,44 +24,26 @@
         <a href="/showLevels">show all levels</a>
         <a href="/home">home</a>
     </nav>
-    <div class="levelDisplay">
-        <p>Level: </p>
-        <p id="levelUpTo">{{level}}</p>
-    </div>
-    <button onclick="toggleNightMode()">night-mode</button>
+    <header>
+            <section>
+
+                <p class="levelDisplay">
+                    Level: {{level}}
+                </p>
+                <div class="wpm">start typing to start the words per minute calculater</div>
+            </section>
+        <canvas id="graph" width="400" height="200"></canvas>
+    </header>
+
     <main>
-        <div class="wpm">start typing to start the words per minute calculater</div>
         <div class="text"></div>
     </main>
 
-    <!-- <div class="wrapper" width="200" height="400">
+    <button onclick="toggleNightMode()">night-mode</button>
 
-        <canvas id="myChart"></canvas>
-    </div> -->
 
-    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        const progress_ = [2,6,1,7,8,9, 1, 2, 3]
-        var ctx = document.getElementById('myChart').getContext('2d');
 
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['A', 'B', 'C', 'D', 'E', 'F'],
-                datasets: [{
-                    label: 'Data',
-                    data: [progress_],
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 1
-                }]
-            },
-        });
-
-        </script> -->
-        
 
 
 </body>
-
 </html>
