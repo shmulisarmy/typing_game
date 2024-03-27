@@ -1,39 +1,73 @@
-.night-mode{
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    background-color: darkkhaki;
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.navbar a, .navbar button {
+    color: black;
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+}
+
+.level-display {
+    margin-bottom: 20px;
+}
+
+.level-display p {
+    margin: 0;
+}
+
+.level-display #levelUpTo {
+    font-weight: bold;
+}
+
+main {
+    animation: fadeIn 1s;
+}
+
+.text {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.wpm, .wpm-indicator {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.wpm-indicator {
+    display: none;
+}
+
+.night-mode {
     background-color: black;
     color: white;
-    fill: white;
-}
-.levelDisplay{
-    display: flex;
-}
-
-body{
-    background-color: rgba(235, 220, 220, 0.865);
-    margin: 0%;
-    text-align: center;
-    font-size: xx-large;
-}
-
-main{
-    animation: fadeIn 1s
-}
-.wrapper{
-    display: flex;
-    justify-content: center; /* Optional: adjust as needed */
-    align-items: center; /* Optional: adjust as needed */
-}
-
-.wpm{
-    color: darkcyan;
-}
-
-main, .text, .wpm{
-    margin: 12%;
 }
 
 @keyframes fadeIn {
-0%{
-    opacity: 0;
-    scale: .8;
-}
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
 }
