@@ -9,6 +9,8 @@ body {
 }
 
 header{
+    margin-right: 4%;
+    margin-left: 4%;
     display: flex;
     justify-content: space-around;
 }
@@ -43,7 +45,7 @@ button:hover{
 }
 
 .text{
-    height: 100px;
+    /* height: 100px; */
     border: .1px solid var(--text-color);
     padding: 4%;
     margin: 4%;
