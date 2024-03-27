@@ -39,13 +39,15 @@ function BackSpace() {
     // modifier
     letterUpTo--
     allSpans.eq(letterUpTo).css({
-        "color": "white",
+        "color": "var(--text-color)",
         "background-color": "transparent",
     })
 }
 function wpmCalc() {
     if (!startTime) {
         startTime = Date.now()
+        wpmInterval = setInterval(wpmCalc, 300)
+
         return
     }
     timeSinceStart = Date.now() - startTime
@@ -104,7 +106,6 @@ window.addEventListener("keydown", event => {
 
     wpmCalc()
 
-    wpmInterval = setInterval(wpmCalc, 3000)
 
     if (letterUpTo == sentence.length){
         LoadNextLevel()

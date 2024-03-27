@@ -14,7 +14,7 @@
         main{
             margin: 12%;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
             grid-gap: 40px;
         }
         .level-display{
@@ -32,8 +32,8 @@
         }
         @keyframes in-and-out {
             10%, 100%{
-                opacity: .6;
-                transform: scale(.6);
+                opacity: .5;
+                transform: scale(.5);
             }
             60%{
                 opacity: 1;
@@ -55,7 +55,11 @@
         background-color: darkkhaki;
         color: black;
         display: flex;
-        justify-content: space-around;"
+        justify-content: space-around;
+        position: sticky;
+        top: 0%;
+        left: 0%;
+        z-index: 1;"
         >
         <a href="/showLevels">show all levels</a>
         <a href="/home">home</a>
@@ -64,8 +68,8 @@
         {% if allLevels %}
             {% for wpm in allLevels %}
             <a href="/gotoLevel/{{ loop.index }}" class="level-display"> 
-                <h1> Level: {{ loop.index }}</h1>
-                <h1>Highscore: {{ wpm }} WPM</h1>
+                <h4> Level: {{ loop.index }}</h4>
+                <h4>Highscore: {{ wpm }} WPM</h4>
             </a>
             {% endfor %}       
             
