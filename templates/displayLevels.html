@@ -64,14 +64,14 @@
         <a href="/showLevels">show all levels</a>
         <a href="/home">home</a>
     </nav>
-    <div style="text-align: center;">
+    <div style="text-align: center; margin: 12%;">
         {% if username %}
             <h1>
                 {{username}}
             </h1>
             {% else %}
             <h1>Guest</h1>
-            <p>you are currently not logged, would you like to <a href="/login">login</a> to save progress?</p>
+            <p>you are currently not logged, would you like to <a href="/signup">create an acount</a> to save progress?</p>
         {% endif %}
     </div>
     <main>
