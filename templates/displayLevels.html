@@ -67,11 +67,12 @@
     <div style="text-align: center; margin: 12%;">
         {% if username %}
             <h1>
-                {{username}}
+                logged in as {{username}}
             </h1>
             {% else %}
             <h1>Guest</h1>
             <p>you are currently not logged, would you like to <a href="/signup">create an acount</a> to save progress?</p>
+            <p>already have an account? <a href="/login">login</a> see saved progress</p>
         {% endif %}
     </div>
     <main>
