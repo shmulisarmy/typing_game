@@ -67,11 +67,12 @@ def main():
 
 @app.route("/showLevels")
 def showLevels():
+    username = session.get("username")
     [allLevelsWithWpms] = getter(session, "wpms")
     if not allLevelsWithWpms:
         setter(session, "wpms", [0 for _ in range(100)])
+        allLevelsWithWpms = [0 for _ in range(100)]
 
-    username = session.get("username")
 
     print(f"{allLevelsWithWpms = }")
     return render_template("displayLevels.html", allLevels=allLevelsWithWpms, username=username)
