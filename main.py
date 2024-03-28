@@ -5,6 +5,12 @@ from data import accounts, accountInfo, typingLevels
 app = Flask(__name__)
 app.secret_key = b'\xfd\xec\x82\x96\x94\xa2\xb0\xd3\xb7\x15\xe0\x8e\xd3\x1c\xb7\x1a'
 
+@app.route("/logout")
+def logout():
+    session["username"] = None
+
+    return "you are now logged out"
+
 @app.route('/signup', methods=['POST', "GET"])
 def signup():
     if request.method == "GET":
