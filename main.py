@@ -33,11 +33,13 @@ def gotoLevel(level: int):
 @app.route('/loadNextLevel/<int:level>')
 def loadNextLevel(level: int):
     print(f"load level after {level}")
-    print(f"{session = }")
     wpm = request.args.get("wpm", type=int)
+    assert isinstance(wpm, int)
     session["wpms"][level-1] = wpm
+    level+=1
+    print(f"level updated to = {level}")
     session["levelUpTo"] = level
-    return typingLevels[level]
+    return {"sentence": typingLevels[level], "level": level}
 
 
 

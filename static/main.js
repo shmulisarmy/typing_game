@@ -8,6 +8,7 @@ function toggleNightMode(){
 
 
 function LoadNextLevel(){
+    console.log("levelUpTo", levelUpTo)
     $.ajax({
         type: "GET",
         url:   `/loadNextLevel/${levelUpTo}`,
@@ -16,11 +17,10 @@ function LoadNextLevel(){
             wpm: wpm
         },
         success: function(response) {
-            // Assign the response to the variable
-            sentence = response;
+            sentence = response["sentence"];
+            levelUpTo = parseInt(response["level"]);
         },
         error: function(xhr, status, error) {
-            // Handle errors here
             console.error(xhr.responseText);
         }
     });
@@ -28,7 +28,7 @@ function LoadNextLevel(){
     clearInterval(wpmInterval)
     $wpm.text("next level loaded");
     levelUpTo++
-    $('#levelUpTo').text(`Level: ${levelUpTo}`)
+    $('#levelDisplay').text(`Level: ${levelUpTo}`)
     letterUpTo = 0
     wpmData = []
     startTime = false
@@ -62,7 +62,7 @@ const text = $('.text')
 let letterUpTo = 0;
 let wpmData = [];
 let key, startTime, timeSinceStart, wpm, backAWord, allSpans, wpmInterval;
-let levelUpTo = parseInt($('#levelUpTo').text())
+let levelUpTo = parseInt($('#levelDisplay').text().split(" ")[1])
 const ignore_letters = ["Command", "Shift"]
 const $wpm = $('.wpm')
 let progress = [];
@@ -71,7 +71,6 @@ setSpans();
 
 window.addEventListener("keydown", event => {
     key = event.key
-    console.log(key)
     if (key == "Space"){
         event.preventDefault();
     }
