@@ -2,11 +2,14 @@ from flask import Flask, render_template, session, request
 from utils import getter, setter, secure, hash
 from data import accounts, accountInfo, typingLevels
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder = "templates")
 app.secret_key = b'\xfd\xec\x82\x96\x94\xa2\xb0\xd3\xb7\x15\xe0\x8e\xd3\x1c\xb7\x1a'
 
 @app.route("/logout")
 def logout():
+    """
+    ! modifier
+    """
     session["username"] = None
 
     return "you are now logged out"
@@ -25,14 +28,16 @@ def signup():
     if not secure(password):
         return "this password is not secure please create another one"
     
+    #! modifier from this point on 
     accounts[name] = hash(password)
     accountInfo[name] = {}
     accountInfo[name]["wpms"] = session.get("wpms")
     accountInfo[name]["levelUpTo"] = session.get("levelUpTo")
-    print(f"{accountInfo = }")
+    session["username"] = name
+    
+    #wipe all session fields
     session["wpms"] = None
     session["levelUpTo"] = None
-    session["username"] = name
 
     return main()
 
@@ -48,6 +53,9 @@ def login():
     
     if accounts[name] != hash(password):
         return "wrong username or password"
+    
+    #! modifier from this point on 
+    
     session["username"] = name
 
     return main()
@@ -56,8 +64,9 @@ def login():
     
 @app.route('/')
 def main():
-    print(f"{session}")
     wpms, levelUpTo = getter(session, "wpms", "levelUpTo")
+
+    #! modifier from this point on 
     if not wpms:
         setter(session, "wpms", 0)
     if levelUpTo == None:
@@ -69,38 +78,35 @@ def main():
 def showLevels():
     username = session.get("username")
     [allLevelsWithWpms] = getter(session, "wpms")
+    #! modifier from this point on 
     if not allLevelsWithWpms:
         setter(session, "wpms", [0 for _ in range(100)])
         allLevelsWithWpms = [0 for _ in range(100)]
 
-
-    print(f"{allLevelsWithWpms = }")
     return render_template("displayLevels.html", allLevels=allLevelsWithWpms, username=username)
 
 @app.route("/gotoLevel/<int:level>")
 def gotoLevel(level: int):
-    print(f"go to level {level}")
-    print(f"{session = }")
+    """
+    !modifier
+    """
     setter(session, "levelUpTo", level)
     return render_template("main.html", sentence=typingLevels[level], level=level)
 
 
 @app.route('/loadNextLevel/<int:level>')
 def loadNextLevel(level: int):
-    print(f"load level after {level}")
     wpm = request.args.get("wpm", type=int)
     assert isinstance(wpm, int)
     [wpms] = getter(session, "wpms")
-    print(f"{wpms = }")
     if wpms == None:
         setter(session, "wpms", [0 for _ in range(100)])
         wpms = [0 for _ in range(100)]
     wpms[level-1] = wpm
     level+=1
-    print(f"level updated to = {level}")
     setter(session, "levelUpTo", level)
     return {"sentence": typingLevels[level], "level": level}
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5050)

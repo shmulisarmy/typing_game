@@ -12,7 +12,7 @@ function LoadNextLevel(){
     $.ajax({
         type: "GET",
         url:   `/loadNextLevel/${levelUpTo}`,
-        async: false, // Make the request synchronous
+        async: false, 
         data: {
             wpm: wpm
         },
