@@ -77,10 +77,17 @@ def main():
     return render_template("main.html", sentence=typingLevels[levelUpTo], level=levelUpTo)
 
 
-@app.route('/sentenceGenerator/<string:usersHash>')
-def sentenceGenerator(usersHash):
+@app.route('/payForSentenceGenerationPermission')
+def payForSentenceGenerationPermission():
+    session["canGenerateSentence"] = True
+    return "you now have access to the sentence generation feature"
+
+@app.route('/generateSentence/<string:topFiveLetters>', methods=['GET'])
+def sentenceGenerator(topFiveLetters):
+    print(f"{topFiveLetters = }")
+    
     if session.get("canGenerateSentence"):
-        return get_best_sentence(usersHash)
+        return get_best_sentence(topFiveLetters)
     return "you do not have access to the sentence generation feature"
 
 
@@ -97,9 +104,6 @@ def showLevels():
 
 @app.route("/gotoLevel/<int:level>")
 def gotoLevel(level: int):
-    """
-    !modifier
-    """
     setter(session, "levelUpTo", level)
     return render_template("main.html", sentence=typingLevels[level], level=level)
 

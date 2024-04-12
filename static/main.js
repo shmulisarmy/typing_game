@@ -6,6 +6,31 @@ function toggleNightMode(){
     $('body').toggleClass('night-mode')
 }
 
+function offerSetneceGenerationService(){
+    const sortedLetterTimes = Object.entries(letterTimes).sort((a, b) => b[1] - a[1]).slice(0, 5);
+    const topFiveLetters = sortedLetterTimes.map(([key]) => key).join('');
+    if (prompt("would you like to generate a new sentence?") == "yes") {
+        $.ajax({
+            type: "GET",
+            url:   "/generateSentence",
+            data: {
+                topFiveLetters: topFiveLetters
+            },
+            async: false, 
+            success: function(response) {
+                sentence = response["sentence"];
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    } else {
+        LoadNextLevel()
+    }
+    reset()
+
+}
+
 
 function LoadNextLevel(){
     console.log("levelUpTo", levelUpTo)
@@ -24,6 +49,10 @@ function LoadNextLevel(){
             console.error(xhr.responseText);
         }
     });
+
+}
+
+function reset(){
     wpm = 0
     clearInterval(wpmInterval)
     $wpm.text("next level loaded");
@@ -33,9 +62,7 @@ function LoadNextLevel(){
     wpmData = []
     startTime = false
     setSpans();
-
 }
-
 
 function BackSpace() {
     // modifier
@@ -78,7 +105,7 @@ const ignore_letters = ["Command", "Shift"]
 const $wpm = $('.wpm')
 let progress = [];
 
-coonst letterTimes = {}
+const letterTimes = {}
 
 setSpans();
 
@@ -111,6 +138,10 @@ window.addEventListener("keydown", event => {
             "background-color": "lightgreen",
         })
     } else {
+        if (!letterTimes[sentence[letterUpTo]]) {
+            letterTimes[sentence[letterUpTo]] = 0
+        }
+        letterTimes[sentence[letterUpTo]] += 1
         allSpans.eq(letterUpTo).css({
             "color": "red",
             "background-color": "orange",
@@ -123,7 +154,7 @@ window.addEventListener("keydown", event => {
 
 
     if (letterUpTo == sentence.length){
-        LoadNextLevel()
+        offerSetneceGenerationService()
     }
 })
 
