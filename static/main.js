@@ -57,6 +57,17 @@ function wpmCalc() {
     $wpm.text(`wpm: ${wpm}`)
 }
 
+function setSpans() {
+    //clear .text
+    text.text("")
+    sentence.split('').forEach(letter =>{
+        text.append($('<span></span>').text(letter))
+        }    
+    );
+    allSpans = $('span');
+}
+
+
 
 const text = $('.text')
 let letterUpTo = 0;
@@ -66,6 +77,8 @@ let levelUpTo = parseInt($('#levelDisplay').text().split(" ")[1])
 const ignore_letters = ["Command", "Shift"]
 const $wpm = $('.wpm')
 let progress = [];
+
+coonst letterTimes = {}
 
 setSpans();
 
@@ -114,15 +127,6 @@ window.addEventListener("keydown", event => {
     }
 })
 
-function setSpans() {
-    //clear .text
-    text.text("")
-    sentence.split('').forEach(letter =>{
-        text.append($('<span></span>').text(letter))
-        }    
-    );
-    allSpans = $('span');
-}
 
 
 

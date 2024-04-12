@@ -77,4 +77,3 @@ sentence_tree = Trie.make_tree(sentence_hash_dictionary.keys())
 replacment_word_trees = {word_list_key: Trie.make_tree(word_list) for word_list_key, word_list in words.replacement_words.items()}
 
 
-print(get_best_sentence("skbc"))
