@@ -9,10 +9,13 @@ function toggleNightMode(){
 function offerSetneceGenerationService(){
     const sortedLetterTimes = Object.entries(letterTimes).sort((a, b) => b[1] - a[1]).slice(0, 5);
     const topFiveLetters = sortedLetterTimes.map(([key]) => key).join('');
-    if (prompt("would you like to generate a new sentence?") == "yes") {
+    const mostCommonLetter = topFiveLetters[0];
+    if (prompt(`it seems as though you have lots of trouble typing out '${mostCommonLetter}',  
+    would you like to generate a new custom sentence made to help you work on all the 
+    letters that you struggle with?`) == "yes") {
         $.ajax({
             type: "GET",
-            url:   `/generateSentence/${topFiveLetters}`,
+            url:   `/api/generateSentence/${topFiveLetters}`,
             async: false, 
             success: function(response) {
                 alert(response);

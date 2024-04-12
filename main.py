@@ -1,10 +1,11 @@
 from flask import Flask, render_template, session, request
-from sentence_maker.tree_maker import get_best_sentence
 from utils import getter, setter, secure, hash
 from data import accounts, accountInfo, typingLevels
 
+from api.views import bp
 
 app = Flask(__name__, template_folder = "templates")
+app.register_blueprint(bp)
 app.secret_key = b'\xfd\xec\x82\x96\x94\xa2\xb0\xd3\xb7\x15\xe0\x8e\xd3\x1c\xb7\x1a'
 
 @app.route("/logout")
@@ -82,13 +83,6 @@ def payForSentenceGenerationPermission():
     session["canGenerateSentence"] = True
     return "you now have access to the sentence generation feature"
 
-@app.route('/generateSentence/<string:topFiveLetters>', methods=['GET'])
-def sentenceGenerator(topFiveLetters):
-    print(f"{topFiveLetters = }")
-    
-    if getter(session, "canGenerateSentence")[0] == True:
-        return {"sentence": get_best_sentence(topFiveLetters)}
-    return "you do not have access to the sentence generation feature"
 
 
 @app.route("/showLevels")
