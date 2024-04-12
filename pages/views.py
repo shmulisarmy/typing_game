@@ -1,9 +1,9 @@
 from flask import blueprints, session, render_template, request
-from utils import getter, setter, valiedPayment
+from utils import getter, setter, valiedPayment, secure
 from data import accounts, accountInfo, typingLevels
-from dataBaseConnect import giveAccess, userHasAccess, matching, createUser
+from dataBaseConnect import giveAccess, userHasAccess, matching, createUser, userExists
 
-pages = blueprints.Blueprint("pages", __name__, url_prefix="/")
+pages = blueprints.Blueprint("pages", __name__, url_prefix="")
 
 
 
@@ -24,14 +24,15 @@ def signup():
     """places all data previously in session into accountInfo"""
     name = request.form.get("name", type=str)
     password = request.form.get("password", type=str)
-    
-    if name in accounts:
+
+    if userExists(name):
         return "this username already exists"
     
     if not secure(password):
         return "this password is not secure please create another one"
     
-    #! modifier from this point on 
+    
+    createUser(name, hash(password))
     accounts[name] = hash(password)
     accountInfo[name] = {}
     accountInfo[name]["wpms"] = session.get("wpms")
@@ -78,11 +79,22 @@ def main():
     return render_template("main.html", sentence=typingLevels[levelUpTo], level=levelUpTo)
 
 
-@pages.route('/payForSentenceGenerationPermission', methods=["POST"])
+@pages.route('/payForSentenceGenerationPermission', methods=["POST", "GET"])
 def payForSentenceGenerationPermission():
+    if request.method == "GET":
+        return render_template("payForSentenceGenerationPermission.html")
+    
+    print(f"{request.form = }")
+
     cardNumber = request.form.get("cardNumber", type=int)
     cvv = request.form.get("cvv", type=int)
     paymentAmount = request.form.get("paymentAmount", type=int)
+    if not cardNumber:
+        return "card number is required"
+    if not cvv:
+        return "cvv is required"
+    if not paymentAmount:
+        return "payment amount is required"
     if valiedPayment(cardNumber, cvv, paymentAmount):
         giveAccess(session.get("username"))
         return "payment was successful"
