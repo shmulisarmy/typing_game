@@ -1,4 +1,5 @@
 import sqlite3
+from data import accountInfo
 
 
 
@@ -43,7 +44,11 @@ def matching(username, password):
     conn = sqlite3.connect('database.db')
     c = conn.cursor()
     c.execute('SELECT password FROM users2 WHERE username = ?', (username,))
-    return c.fetchone() == password
+    if not c.fetchone():
+        return False
+    print(f"{c.fetchone() =}")
+    print(f"{password = }")
+    return int(c.fetchone()[0]) == password
 
 def displayAllData():
     conn = sqlite3.connect('database.db')
@@ -54,7 +59,17 @@ def displayAllData():
     for row in c.fetchall():
         print(f'\033[93m{row[0]}\033[0m \033[94m{row[1]}\033[0m \033[92m{row[2]}\033[0m')
 
+def placeInAccountInfo():
+    conn = sqlite3.connect('database.db')
+    c = conn.cursor()
+    c.execute('SELECT * FROM users2')
+    for row in c.fetchall():
+        if row in accountInfo:
+            continue
+        accountInfo[row[0]] = {}
+        accountInfo[row[0]]["wpms"] = row[1]
+        accountInfo[row[0]]["levelUpTo"] = row[2]
 
-
+placeInAccountInfo()
 createTable()
 displayAllData()

@@ -1,6 +1,6 @@
 from flask import blueprints, session, render_template, request
 from utils import getter, setter, valiedPayment, secure
-from data import accounts, accountInfo, typingLevels
+from data import accountInfo, typingLevels
 from dataBaseConnect import giveAccess, userHasAccess, matching, createUser, userExists
 
 pages = blueprints.Blueprint("pages", __name__, url_prefix="")
@@ -33,7 +33,6 @@ def signup():
     
     
     createUser(name, hash(password))
-    accounts[name] = hash(password)
     accountInfo[name] = {}
     accountInfo[name]["wpms"] = session.get("wpms")
     accountInfo[name]["levelUpTo"] = session.get("levelUpTo")
@@ -52,10 +51,10 @@ def login():
     name = request.form.get("name", type=str)
     password = request.form.get("password", type=str)
     
-    if not name in accounts:
-        return "this username does not exist"
+    if not userExists(name):
+        return "this user does not exist"
     
-    if accounts[name] != hash(password):
+    if not matching(name, hash(password)):
         return "wrong username or password"
     
     #! modifier from this point on 
