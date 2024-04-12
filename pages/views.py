@@ -1,6 +1,7 @@
 from flask import blueprints, session, render_template, request
-from utils import getter, setter
+from utils import getter, setter, valiedPayment
 from data import accounts, accountInfo, typingLevels
+from dataBaseConnect import giveAccess, userHasAccess, matching, createUser
 
 pages = blueprints.Blueprint("pages", __name__, url_prefix="/")
 
@@ -77,10 +78,16 @@ def main():
     return render_template("main.html", sentence=typingLevels[levelUpTo], level=levelUpTo)
 
 
-@pages.route('/payForSentenceGenerationPermission')
+@pages.route('/payForSentenceGenerationPermission', methods=["POST"])
 def payForSentenceGenerationPermission():
-    session["canGenerateSentence"] = True
-    return "you now have access to the sentence generation feature"
+    cardNumber = request.form.get("cardNumber", type=int)
+    cvv = request.form.get("cvv", type=int)
+    paymentAmount = request.form.get("paymentAmount", type=int)
+    if valiedPayment(cardNumber, cvv, paymentAmount):
+        giveAccess(session.get("username"))
+        return "payment was successful"
+    
+    return "payment was unsuccessful"
 
 
 

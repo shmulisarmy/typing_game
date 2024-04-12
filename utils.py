@@ -38,3 +38,13 @@ def hash(password: str) -> str:
     hash_object.update(password_bytes)
     return hash_object.hexdigest()
 
+
+
+def valiedPayment(cardNumber: int, cvv: int, paymentAmount: int)  -> bool:
+    if cardNumber != 1234567890123456:
+        return False
+    if cvv != 123:
+        return False
+    if paymentAmount != 10:
+        return False
+    return True
