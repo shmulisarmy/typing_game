@@ -12,12 +12,10 @@ function offerSetneceGenerationService(){
     if (prompt("would you like to generate a new sentence?") == "yes") {
         $.ajax({
             type: "GET",
-            url:   "/generateSentence",
-            data: {
-                topFiveLetters: topFiveLetters
-            },
+            url:   `/generateSentence/${topFiveLetters}`,
             async: false, 
             success: function(response) {
+                alert(response);
                 sentence = response["sentence"];
             },
             error: function(xhr, status, error) {

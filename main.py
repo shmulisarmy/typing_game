@@ -86,8 +86,8 @@ def payForSentenceGenerationPermission():
 def sentenceGenerator(topFiveLetters):
     print(f"{topFiveLetters = }")
     
-    if session.get("canGenerateSentence"):
-        return get_best_sentence(topFiveLetters)
+    if getter(session, "canGenerateSentence")[0] == True:
+        return {"sentence": get_best_sentence(topFiveLetters)}
     return "you do not have access to the sentence generation feature"
 
 
