@@ -18,8 +18,12 @@ function offerSetneceGenerationService(){
             type: "GET",
             url:   `/api/generateSentence/${topFiveLetters}`,
             async: false, 
+            data: {
+                levelUpTo: levelUpTo,
+                wpm: wpm
+            },
             success: function(response) {
-                if (!Object.keys(response).includes("sentence")) {
+                if (response["didGnereatedSentence"] != false) {
                     alert(response);
                     return
                 }
@@ -33,6 +37,8 @@ function offerSetneceGenerationService(){
     } 
     if (!usingGeneratedSentence) {
         LoadNextLevel()
+    } else {
+
     }
     reset()
 
@@ -64,6 +70,10 @@ function reset(){
     clearInterval(wpmInterval)
     $wpm.text("next level loaded");
     $('#levelDisplay').text(`Level: ${levelUpTo}`)
+    if (usingGeneratedSentence) {
+        $('#sentenceDisplay').text(`ai generated sentence`)
+    }
+    usingGeneratedSentence = false
     letterUpTo = 0
     wpmData = []
     startTime = false
