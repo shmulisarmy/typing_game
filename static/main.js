@@ -23,8 +23,8 @@ function offerSetneceGenerationService(){
                 wpm: wpm
             },
             success: function(response) {
-                if (response["didGnereatedSentence"] != false) {
-                    alert(response);
+                alert(response.message);
+                if (response["didGnereatedSentence"] == false) {
                     return
                 }
                 sentence = response["sentence"];
@@ -37,9 +37,7 @@ function offerSetneceGenerationService(){
     } 
     if (!usingGeneratedSentence) {
         LoadNextLevel()
-    } else {
-
-    }
+    } 
     reset()
 
 }
@@ -69,11 +67,11 @@ function reset(){
     wpm = 0
     clearInterval(wpmInterval)
     $wpm.text("next level loaded");
-    $('#levelDisplay').text(`Level: ${levelUpTo}`)
-    if (usingGeneratedSentence) {
-        $('#sentenceDisplay').text(`ai generated sentence`)
+    if (usingGeneratedSentence == true) {
+        $('#levelDisplay').text(`ai generated sentence`)
+    } else {
+        $('#levelDisplay').text(`Level: ${levelUpTo}`)
     }
-    usingGeneratedSentence = false
     letterUpTo = 0
     wpmData = []
     startTime = false

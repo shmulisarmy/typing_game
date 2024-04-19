@@ -19,10 +19,20 @@ def sentenceGenerator(topFiveLetters):
     print(f"{topFiveLetters = }")
     username = session.get("username")
     if not username:
-        return "you are not logged in"
+        return {
+            "message":  "you are not logged in",
+                        "didGnereatedSentence": False,
+        
+            }
     if userHasAccess(username):
         print("user has access to the sentence generation feature")
-        return {"sentence": get_best_sentence(topFiveLetters),
+        generatedSentence = get_best_sentence(topFiveLetters)
+        print(f"{generatedSentence = }")
+        return {"sentence": generatedSentence,
+                "message":  "this is an ai generated sentence",
                 "didGnereatedSentence": True}
     print("user does not have access to the sentence generation feature")
-    return "you do not have access to the sentence generation feature"
+    return {
+        "message":  "you do not have access to the sentence generation feature",
+                    "didGnereatedSentence": False
+                    }
