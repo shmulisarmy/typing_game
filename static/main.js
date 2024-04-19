@@ -7,6 +7,7 @@ function toggleNightMode(){
 }
 
 function offerSetneceGenerationService(){
+    usingGeneratedSentence = false
     const sortedLetterTimes = Object.entries(letterTimes).sort((a, b) => b[1] - a[1]).slice(0, 5);
     const topFiveLetters = sortedLetterTimes.map(([key]) => key).join('');
     const mostCommonLetter = topFiveLetters[0];
@@ -18,14 +19,19 @@ function offerSetneceGenerationService(){
             url:   `/api/generateSentence/${topFiveLetters}`,
             async: false, 
             success: function(response) {
+                if (!Object.keys(response).includes("sentence")) {
+                    return
+                }
                 alert(response);
                 sentence = response["sentence"];
+                usingGeneratedSentence = true
             },
             error: function(xhr, status, error) {
                 console.error(xhr.responseText);
             }
         });
-    } else {
+    } 
+    if (!usingGeneratedSentence) {
         LoadNextLevel()
     }
     reset()
@@ -99,7 +105,7 @@ function setSpans() {
 const text = $('.text')
 let letterUpTo = 0;
 let wpmData = [];
-let key, startTime, timeSinceStart, wpm, backAWord, allSpans, wpmInterval;
+let key, startTime, timeSinceStart, wpm, backAWord, allSpans, wpmInterval, usingGeneratedSentence;
 let levelUpTo = parseInt($('#levelDisplay').text().split(" ")[1])
 const ignore_letters = ["Command", "Shift"]
 const $wpm = $('.wpm')
