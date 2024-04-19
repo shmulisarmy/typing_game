@@ -72,6 +72,14 @@ def placeInAccountInfo():
         accountInfo[row[0]]["wpms"] = row[1]
         accountInfo[row[0]]["levelUpTo"] = row[2]
 
+
+def AccountInfoToDatabase():
+    data = []
+    for user in accountInfo:
+        data.append((user, ''.join(accountInfo[user]["wpms"]), accountInfo[user]["levelUpTo"]))
+    conn = sqlite3.connect('database.db')
+    conn.executemany('INSERT INTO users2 VALUES(?,?,?)', data)
+
 placeInAccountInfo()
 createTable()
 displayAllData()

@@ -133,3 +133,5 @@ def loadNextLevel(level: int):
     level+=1
     setter(session, "levelUpTo", level)
     return {"sentence": typingLevels[level], "level": level}
+
+
