@@ -124,10 +124,9 @@ def loadNextLevel(level: int):
     wpm = request.args.get("wpm", type=int)
     assert isinstance(wpm, int)
     [wpms] = getter(session, "wpms")
-    if wpms == None:
+    if not isinstance(wpms, list):
         setter(session, "wpms", [0 for _ in range(100)])
         wpms = [0 for _ in range(100)]
-    print(f"{isinstance(wpm, int) = } {isinstance(wpms, list) = }")
     wpms[level-1] = wpm
     level+=1
     setter(session, "levelUpTo", level)
