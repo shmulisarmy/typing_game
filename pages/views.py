@@ -127,6 +127,7 @@ def loadNextLevel(level: int):
     if wpms == None:
         setter(session, "wpms", [0 for _ in range(100)])
         wpms = [0 for _ in range(100)]
+    print(f"{isinstance(wpm, int) = } {isinstance(wpms, list) = }")
     wpms[level-1] = wpm
     level+=1
     setter(session, "levelUpTo", level)

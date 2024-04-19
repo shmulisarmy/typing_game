@@ -20,9 +20,9 @@ function offerSetneceGenerationService(){
             async: false, 
             success: function(response) {
                 if (!Object.keys(response).includes("sentence")) {
+                    alert(response);
                     return
                 }
-                alert(response);
                 sentence = response["sentence"];
                 usingGeneratedSentence = true
             },

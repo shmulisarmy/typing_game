@@ -37,7 +37,9 @@ def userHasAccess(username):
     conn = sqlite3.connect('database.db')
     c = conn.cursor()
     c.execute('SELECT canGenerateSentence FROM users2 WHERE username = ?', (username,))
-    return c.fetchone()
+    results = c.fetchone()
+    print(f"{results = }")
+    return results[0]
 
 
 def matching(username, password):
@@ -47,7 +49,7 @@ def matching(username, password):
     if not c.fetchone():
         return False
     print(f"{c.fetchone() =}")
-    print(f"{password = }")
+    print(f"{password = }")     
     return int(c.fetchone()[0]) == password
 
 def displayAllData():
