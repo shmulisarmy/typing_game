@@ -57,7 +57,6 @@ function reset(){
     wpm = 0
     clearInterval(wpmInterval)
     $wpm.text("next level loaded");
-    levelUpTo++
     $('#levelDisplay').text(`Level: ${levelUpTo}`)
     letterUpTo = 0
     wpmData = []
