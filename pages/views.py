@@ -115,6 +115,8 @@ def showLevels():
 
 @pages.route("/gotoLevel/<int:level>")
 def gotoLevel(level: int):
+    if not 0 < level < len(typingLevels):
+        return "invalid level"
     setter(session, "levelUpTo", level)
     return render_template("main.html", sentence=typingLevels[level], level=level)
 
