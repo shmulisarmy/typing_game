@@ -96,6 +96,7 @@ def payForSentenceGenerationPermission():
         return "payment amount is required"
     if valiedPayment(cardNumber, cvv, paymentAmount):
         giveAccess(session.get("username"))
+        session["sentenceGenerationAccess"] = True
         return "payment was successful"
     
     return "payment was unsuccessful"

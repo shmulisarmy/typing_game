@@ -28,7 +28,7 @@ def setter(session, attr, value) -> None:
 
 def secure(password: str) -> bool:
     """pure"""
-    return len(password) < 8
+    return len(password) > 8
 
 
 def hash(password: str) -> str:
