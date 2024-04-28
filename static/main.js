@@ -7,7 +7,6 @@ function toggleNightMode(){
 }
 
 function offerSetneceGenerationService(){
-    usingGeneratedSentence = false
     const sortedLetterTimes = Object.entries(letterTimes).sort((a, b) => b[1] - a[1]).slice(0, 5);
     const topFiveLetters = sortedLetterTimes.map(([key]) => key).join('');
     const mostCommonLetter = topFiveLetters[0];
@@ -168,7 +167,15 @@ window.addEventListener("keydown", event => {
 
 
     if (letterUpTo == sentence.length){
-        offerSetneceGenerationService()
+        //end of level
+        if (usingGeneratedSentence) {
+            //escape usingGeneratedSentence mode and back into level mode
+            usingGeneratedSentence = false
+            LoadNextLevel()
+            reset()
+        } else {
+            offerSetneceGenerationService()
+        }
     }
 })
 
