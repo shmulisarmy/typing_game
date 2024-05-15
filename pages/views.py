@@ -119,7 +119,8 @@ def gotoLevel(level: int):
     if not 0 < level < len(typingLevels):
         return "invalid level"
     setter(session, "levelUpTo", level)
-    return render_template("main.html", sentence=typingLevels[level], level=level)
+    sentence = "hello how are you doing today. did you know that today is a nice day? hahah well thats so funny bro, well thats wha they say you know. man i love boobs!! they are so grhome."#typingLevels[level]
+    return render_template("main.html", sentence=sentence, level=level)
 
 
 @pages.route('/loadNextLevel/<int:level>')

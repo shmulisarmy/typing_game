@@ -1,6 +1,6 @@
 body {
     transition: 1s;
-    background-color: grey;
+    background-color: whitesmoke;
     --text-color: black;
     color: var(--text-color);
     font-family: Arial, sans-serif;
@@ -14,12 +14,17 @@ header{
     display: flex;
     justify-content: space-around;
 }
+
+
+section{
+    font-size: x-large;
+}
 button:hover{
     cursor: pointer;
 }
 
 .navbar {
-    background-color: darkkhaki;
+    background-color: black;
     color: black;
     display: flex;
     justify-content: space-between;
@@ -46,7 +51,11 @@ button:hover{
 
 .text{
     /* height: 100px; */
-    border: .1px solid var(--text-color);
+    background: linear-gradient(90deg, rgba(0, 100, 0, 0.098), rgba(144, 238, 144, 0.168));
+    /* border: .1px solid var(--text-color); */
+    text-shadow: 1px 1px 1px ;
+    box-shadow: 1px 1px 1px ;
+    border-radius: 4px;
     padding: 4%;
     margin: 4%;
 }
@@ -68,7 +77,11 @@ button:hover{
 }
 
 main {
+    /* margin: 8%; */
     animation: fadeIn 1s;
+    span{
+        font-size: xx-large;
+    }
 }
 
 .text {
