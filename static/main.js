@@ -4,6 +4,7 @@ function progressSnapShot(){
 
 function toggleNightMode(){
     $('body').toggleClass('night-mode')
+    background_color = $('body').hasClass('night-mode') ? 'black' : 'white';
 }
 
 function offerSetneceGenerationService(){
@@ -63,7 +64,8 @@ function LoadNextLevel(){
 }
 
 function reset(){
-    wpm = 0
+    wpm = 0;
+    correct_letters_typed = 0;
     clearInterval(wpmInterval)
     $wpm.text("next level loaded");
     if (usingGeneratedSentence == true) {
@@ -93,7 +95,7 @@ function wpmCalc() {
         return
     }
     timeSinceStart = Date.now() - startTime
-    wpm = Math.round(letterUpTo / (timeSinceStart / 1000 / 12))
+    wpm = Math.round(correct_letters_typed / (timeSinceStart / 1000 / 12))
     $wpm.text(`wpm: ${wpm}`)
 }
 
@@ -112,11 +114,13 @@ function setSpans() {
 const text = $('.text')
 let letterUpTo = 0;
 let wpmData = [];
+let correct_letters_typed = 0;
 let key, startTime, timeSinceStart, wpm, backAWord, allSpans, wpmInterval, usingGeneratedSentence;
 let levelUpTo = parseInt($('#levelDisplay').text().split(" ")[1])
 const ignore_letters = ["Command", "Shift"]
 const $wpm = $('.wpm')
 let progress = [];
+let background_color = "black"
 
 const letterTimes = {}
 
@@ -146,6 +150,7 @@ window.addEventListener("keydown", event => {
     }
     backAWord = false;
     if (key == sentence[letterUpTo]) {
+        correct_letters_typed += 1
         allSpans.eq(letterUpTo).css({
             "color": "green",
             "background-color": "lightgreen",
@@ -164,6 +169,7 @@ window.addEventListener("keydown", event => {
     letterUpTo++
 
     wpmCalc()
+    update_accuracy()
 
 
     if (letterUpTo == sentence.length){
@@ -178,6 +184,16 @@ window.addEventListener("keydown", event => {
         }
     }
 })
+
+
+function accuracy_persentage(){
+    const accuracy = correct_letters_typed / letterUpTo
+    return Math.round(accuracy * 100)
+}
+
+function update_accuracy(){
+    $('#accuracy').text(`accuracy: ${accuracy_persentage()}%`)
+}
 
 
 
@@ -199,13 +215,13 @@ var canvas = document.getElementById('graph');
             data.forEach(function(value, index) {
                 var barHeight = (value / maxValue) * graphHeight;
                 var x = (index * (barWidth + barSpacing)) + 20;
-                var y = graphHeight - barHeight + 20;
+                var y = graphHeight - barHeight + 40;
     
                 ctx.fillStyle = 'blue';
                 ctx.fillRect(x, y, barWidth, barHeight);
     
-                ctx.fillStyle = 'black';
-                ctx.font = '12px Arial';
+                ctx.fillStyle = background_color;
+                ctx.font = '0px Arial';
                 ctx.fillText(index + 1, x + barWidth / 2, graphHeight + 30);
             });
         }

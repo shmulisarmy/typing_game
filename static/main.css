@@ -64,7 +64,7 @@ button:hover{
     margin-bottom: 20px;
 }
 #graph {
-    height: 100px;
+    height: 200px;
     width: 500px;
 }
 
@@ -90,7 +90,7 @@ main {
 }
 
 .wpm, .wpm-indicator {
-    font-size: 18px;
+    font-size: 40px;
     margin-bottom: 20px;
 }
 
@@ -110,3 +110,8 @@ main {
         transform: scale(0.8);
     }
 }
+a {
+    text-decoration: none; 
+    transition: color 0.3s ease; 
+  }
+
