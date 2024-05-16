@@ -82,6 +82,10 @@ function reset(){
 function BackSpace() {
     // modifier
     letterUpTo--
+    if (allSpans.eq(letterUpTo).hasClass('correct')) {
+        correct_letters_typed--
+        allSpans.eq(letterUpTo).removeClass('correct')
+    }
     allSpans.eq(letterUpTo).css({
         "color": "var(--text-color)",
         "background-color": "transparent",
@@ -145,6 +149,7 @@ window.addEventListener("keydown", event => {
                 BackSpace()
             }
         }
+        update_accuracy()
         return
 
     }
@@ -155,6 +160,7 @@ window.addEventListener("keydown", event => {
             "color": "green",
             "background-color": "lightgreen",
         })
+        allSpans.eq(letterUpTo).addClass('correct')
     } else {
         if (!letterTimes[sentence[letterUpTo]]) {
             letterTimes[sentence[letterUpTo]] = 0
