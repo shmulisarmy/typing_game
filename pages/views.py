@@ -78,30 +78,6 @@ def main():
     return render_template("main.html", sentence=typingLevels[levelUpTo], level=levelUpTo)
 
 
-@pages.route('/payForSentenceGenerationPermission', methods=["POST", "GET"])
-def payForSentenceGenerationPermission():
-    if request.method == "GET":
-        return render_template("payForSentenceGenerationPermission.html")
-    
-    print(f"{request.form = }")
-
-    cardNumber = request.form.get("cardNumber", type=int)
-    cvv = request.form.get("cvv", type=int)
-    paymentAmount = request.form.get("paymentAmount", type=int)
-    if not cardNumber:
-        return "card number is required"
-    if not cvv:
-        return "cvv is required"
-    if not paymentAmount:
-        return "payment amount is required"
-    if valiedPayment(cardNumber, cvv, paymentAmount):
-        giveAccess(session.get("username"))
-        session["sentenceGenerationAccess"] = True
-        return "payment was successful"
-    
-    return "payment was unsuccessful"
-
-
 
 @pages.route("/showLevels")
 def showLevels():
