@@ -73,8 +73,8 @@ def main():
     if not wpms:
         setter(session, "wpms", 0)
     if levelUpTo == None:
-        setter(session, "levelUpTo", 0)
-        levelUpTo = 0
+        setter(session, "levelUpTo", 1)
+        levelUpTo = 1
     return render_template("main.html", sentence=typingLevels[levelUpTo], level=levelUpTo)
 
 
